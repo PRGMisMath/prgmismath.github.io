@@ -1697,6 +1697,20 @@ var dataJSON = JSON.parse(`[
         "fertility": "2.968"
     },
     {
+        "countryLabel": "Espagne",
+        "codeALPHA2": "ES",
+        "codeALPHA3": "ESP",
+        "continentLabel": "Europe",
+        "capitalLabel": "Madrid",
+        "pop": "46733038",
+        "area": "505990",
+        "languageLabel": "espagnol",
+        "headstateLabel": "Felipe VI of Spain",
+        "IDH": "0.905",
+        "enemploy": "16",
+        "fertility": "1.27"
+    },
+    {
         "countryLabel": "Trinité-et-Tobago",
         "codeALPHA2": "TT",
         "codeALPHA3": "TTO",
