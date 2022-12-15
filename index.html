@@ -52,11 +52,11 @@
                 let paths = document.querySelectorAll("div.map path");
                 paths.forEach(path => {
                     path.addEventListener("click", event => {
-                        let title = event.target.attributes["title"].value;
                         let id = event.target.attributes["id"].value;
+                        let country = dataJSON.filter((data) => { return data.codeALPHA2 == id; });
+                        let title = country[0].countryLabel;
                         document.querySelector("div.infobar h2").innerHTML = `Pays : ${title}`;
                         document.querySelector("div.imag").innerHTML = `<img src="` + flagDirectory + `${id.toLowerCase()}.` + flagExtension + `" class="flag">`;
-                        let country = dataJSON.filter((data) => { return data.codeALPHA2 == id; });
                         let divDisplay = document.querySelector("div.infobar div.info-display");
                         if (country.length == 0)
                             divDisplay.innerHTML = '';
@@ -1378,7 +1378,6 @@
             </div>
             <div class="infobar">
                 <h2>Nations Unies</h2>
-                <br>
                 <h4>Drapeau :</h4>
                 <div class="imag"><img src="https://www.larousse.fr/encyclopedie/data/images/1009563-Drapeau_de_lONU.jpg" class="flag"></div>
                 <h4>Information :</h4>
