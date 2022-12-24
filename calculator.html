@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculatrice en ligne</title>
+        <link rel="icon" type="image/png" href="calculette.png">
+        <script>
+            var stock = 0;
+            var operation = "";
+            var autre = null;
+            var isoperable = false;
+            function affiche(event)
+            {
+                isoperable = (operation != "");
+                stock = stock * 10 + ((event.name=="1") ? 1 : ((event.name=="2") ? 2 : ((event.name=="3") ? 3 : ((event.name=="4") ? 4 : ((event.name=="5") ? 5 : ((event.name=="6") ? 6 : ((event.name=="7") ? 7 : ((event.name=="8") ? 8 : ((event.name=="9") ? 9 : 0)))))))));
+                document.querySelector("#Result").innerText = stock;
+            }
+            function calcul(event)
+            {
+                if (event.name=="Clear")
+                {
+                    if (stock == 0)
+                    {
+                        autre = null;
+                        operation = "";
+                    }
+                    stock = 0;
+                    document.querySelector("#Result").innerText = '0';
+                }
+                else if (event.name=="Enter")
+                {
+                    document.querySelector("#Result").innerText = ope();
+                }
+                else
+                {
+                    if (isoperable)
+                    {
+                        document.querySelector("#Result").innerText = ope();
+                    }
+                    if (stock != null)
+                        autre = stock;
+                    stock = 0;
+                    operation = event.name;
+                }
+            }
+            function ope()
+            {
+                if (operation=="+")
+                {
+                    autre += stock;
+                }
+                else if (operation=="-")
+                {
+                    autre -= stock;
+                }
+                else if (operation=="*")
+                {
+                    autre *= stock;
+                }
+                else if (operation=="/")
+                {
+                    autre /= stock;
+                }
+                stock = null;
+                operation = "";
+
+                return autre;
+            }
+        </script>
+        <style>
+            body{
+                position: relative;
+                margin: 0px;
+            }
+            button{
+                width: 50px;
+                height: 50px;
+                margin-left: 2px;
+                margin-right: 2px;
+                background-color: lightsteelblue;
+                text-decoration: black;
+                font-size: 15px;
+            }
+            div#menu-bar{
+                background-color: lightblue;
+                float: left;
+                height: 610px;
+            }
+            div#main{
+                overflow: hidden;
+            }
+            div#menu-container{
+                border-right: solid gray;
+            }
+            div#menu-container h2{
+                margin-top: 0px;
+                color: darkblue;
+                border-bottom: 4px solid black;
+            }
+            nav ul{
+                padding: 0px;
+                margin-left: 2px;
+                list-style-type: none;
+            }
+            nav li{
+                width: 100px;
+                height: 40px;
+                padding: 0px;
+                margin: 0px;
+                border-bottom: solid gray;
+            }
+            .calculette{
+                display: block;
+                border:2px solid black;
+                background-color: rgb(252, 210, 210);
+                margin-left: auto;
+                margin-right: auto;
+                width: 15em;
+                text-align: center;
+            }
+            .text_result{
+                border: 2px solid black;
+                margin: 3px;
+                margin-bottom: 10px;
+                font-size: 30px;
+                background-color: blanchedalmond;
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="menu-bar">
+            <div id="menu-container">
+                <h2>Menu</h2>
+                <nav>
+                    <ul>
+                        <li><a href="none.html">Equation</a></li>
+                        <li><a href="none.html">Matrice</a></li>
+                        <li><a href="none.html">Fonction</a></li>
+                        <li><a href="none.html">Fraction</a></li>
+                        <li><a href="none.html">Statistique</a></li>
+                        <li><a href="none.html">Nouveauté</a></li>
+                        <li><a href="none.html">A propos de</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div id="main">
+            <h1>Calculette en ligne</h1>
+            <h2>Math en ligne</h2>
+            <div class="calculette">
+                <p class="text_result" id="Result">0</p>
+                <button onclick="affiche(this)" name="1">1</button>
+                <button onclick="affiche(this)" name="2">2</button>
+                <button onclick="affiche(this)" name="3">3</button>
+                <button onclick="calcul(this)" name="/">/</button>
+                <p></p>
+                <button onclick="affiche(this)" name="4">4</button>
+                <button onclick="affiche(this)" name="5">5</button>
+                <button onclick="affiche(this)" name="6">6</button>
+                <button onclick="calcul(this)" name="*">*</button>
+                <p></p>
+                <button onclick="affiche(this)" name="7">7</button>
+                <button onclick="affiche(this)" name="8">8</button>
+                <button onclick="affiche(this)" name="9">9</button>
+                <button onclick="calcul(this)" name="-">-</button>
+                <p></p>
+                <button onclick="calcul(this)" name="Clear">C</button>
+                <button onclick="affiche(this)" name="0">0</button>
+                <button onclick="calcul(this)" name="Enter">↵</button>
+                <button onclick="calcul(this)" name="+">+</button>
+                <p></p>
+            </div>
+        </div>
+    </body>
+</html>

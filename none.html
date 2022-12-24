@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Page non trouvée !</title>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+                text-align: center;
+            }
+            a div {
+                background-color: lightslategray;
+                font-family: Georgia, Times, 'Times New Roman', serif;
+                width: 100%;
+                height: fit-content;
+                border-bottom: solid 2px black;
+            }
+            a div h4 {
+                margin: 0px;
+                padding: 12px;
+            }
+            div#main {
+                padding: 12% 20% 0% 20%;
+            }
+            h1 {
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="./index.html"><div><h4>Revenir à la page principale</h4></div></a>
+        <div id="main">
+        <h1>Erreur 404 😢</h1>
+        <h2>La page à laquelle vous souhaitiez accédez n'existe pas !</h2>
+        <p>Nous nous excusons platement pour la gêne occasionnée : 
+            la page que vous recherchez est peut-être en développement (à moins que le lien ne soit là que pour faire joli).</p>
+        </div>
+    </body>
+    <script>
+        document.querySelector("body").style = `height: ${window.innerHeight-2}px;`;
+        window.onresize = (event) => {
+            document.querySelector("body").style = `height: ${window.innerHeight-2}px;`;
+        }
+    </script>
+</html>
