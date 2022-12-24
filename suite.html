@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Outils graphiques - Suites</title>
+        <script src="gest_suite.js"></script>
+        <style>
+            div.menu{
+                padding: 3px;
+                text-align: center;
+                font-size: 2em;
+                background-color: blanchedalmond;
+                border-bottom: 2px solid burlywood;
+                height: 75px;
+            }
+            div.itemizer{
+                width: 25%;
+                border-right: 3px solid black;
+                background-color: lightgray;
+            }
+            div.displayer{
+                overflow-y: scroll;
+                height: 80%;
+                border-bottom: solid 1px black;
+            }
+            div.suites{
+                padding-left: 1px;
+            }
+            div.dialog{
+                background: rgba(0, 0, 0, .5);
+                opacity: 1;
+                position: fixed;
+                display: block;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                box-sizing: border-box;
+            }
+            div.pane_dialog{
+                background: whitesmoke;
+                border-radius: 20px;
+                margin: 5%;
+                margin-top: 5%;
+                padding: 5px 15px 10px 15px;
+            }
+            div.description{
+                border: solid rgba(73, 73, 73, 0.815) 1px;
+                border-radius: 15px;
+                padding: 10px;
+            }
+            #Fermer{
+                background-color: rgb(90, 118, 245);
+                float: right;
+                font-size: 16px;
+                margin: 8px;
+            }
+            p.label{
+                margin: 0px;
+                margin-bottom: 2px;
+            }
+            input.Sin{
+                width: 85%;
+                font-size: 1em;
+                font-family: cursive;
+            }
+            path.axis {
+                stroke: black;
+                stroke-width: 2px;
+            }
+            path.grid {
+                stroke: slategray;
+                stroke-width: 1px;
+            }
+            path.suite {
+                stroke: blue;
+                stroke-width: 1.8px;
+                fill: transparent;
+            }
+            div.contSuite {
+                width: 100%;
+            }
+            div.suite_box {
+                width: 100%;
+                padding: 13px 10px 10px 25px;
+                border-bottom: solid 2px lightslategray;
+                display: flex;
+                align-items: baseline;
+            }
+            div.suite_box p {
+                padding-left: 5px;
+            }
+        </style>
+    </head>
+    <body style="margin: 0px">
+        <div class="menu">
+            Outils graphiques - Suites
+            <hr style="height: 1px; margin: 0px; border: 0px; background-color: burlywood;"><br>
+        </div>
+        <div style="display: flex;">
+            <div class="itemizer" id="ItemSuite">
+                <h3 style="margin: 2px;">Suites</h3>
+                <hr style="height: 2px; margin: 0px; border: 0px; background-color: black;">
+                <div class="displayer">
+                    <!-- Toutes les formules des suites -->
+                    <div id="contSuite"></div>
+                    <button onclick="add_suite()" id="adder" style="width: 100%; font-size: 1em;">&plus; Ajouter une suite</button>
+                </div>
+            </div>
+            <div id="grid" style="width: 75%;"><svg id="panel">
+                <!--path-->
+            </svg></div>
+        </div>
+        <div class="dialog" role="dialog" style="display: none;">
+            <div class="pane_dialog">
+                <div class="main_dialog">
+                    <h1 style="margin-top: 15px; padding-left: 2mm;">Name content</h1>
+                    <div class="description">
+                        <form action="#" onsubmit="create_suite(this)" onchange="updateSubBtt(this)">
+                            <div style="display: flex;">
+                                <div style="width: 25%;"><p class="label">Nom de la suite</p><input type="text" id="suite_nom" class="Sin" oninput="name_input(this);"></div>
+                                <div style="width: 75%;"><p class="label">Définition de la suite</p><label for="" id="name"></label><input type="text" id="suite_def" class="Sin"></div>
+                            </div>
+                            <br>
+                            <button type="submit" id="submit">Ajouter</button>
+                        </form>
+                    </div>
+                    <br>
+                    <button onclick="document.querySelector('div.dialog').style='display:none;';" id="Fermer">Fermer</button>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <script>resize(null)</script>
+        <style id="suite_color"></style>
+    </body>
+</html>
