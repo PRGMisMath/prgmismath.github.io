@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractionnement d'avion</title>
+    <link href="plane.css" rel="stylesheet">
+    <link href="panel.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            padding-top: 100px;
+        }
+        header {
+            width: 100%;
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 5px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .print {
+            display: none;
+        }
+        .imbriq_sel {
+            padding-left: 5px;
+            border-left: gray 5px solid;
+            margin-top: 5px;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            .no-print {
+                display: none;
+            }
+            .print {
+                display: block;
+            }
+            body {
+                font-size: small;
+                margin: 20mm;
+                padding: 0;
+                width: 210mm;
+                height: 297mm;
+                font-family: Arial, sans-serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: white;
+            }
+            .header {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10mm;
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 10mm;
+            }
+            .container {
+                width: 90%;
+            }
+            .section {
+                margin-bottom: 10mm;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 10mm;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 5px;
+                text-align: center;
+            }
+            th {
+                background-color: #bebebe;
+            }
+            .inspection {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10mm;
+            }
+            .inspection div {
+                width: 25%;
+            }
+            .totals {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+            .totals div {
+                width: 47%;
+            }
+            .totals div.justlr {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+            .bold-border-top {
+                border-top: 2px solid black;
+            }
+            .bold-border-bottom {
+                border-bottom: 2px solid black;
+            }
+            .bold-border-left {
+                border-left: 2px solid black;
+            }
+            .bold-border-right {
+                border-right: 2px solid black;
+            }
+            .top-right-box {
+                position: absolute;
+                top: 10mm;
+                right: 10mm;
+                border: 1px solid black;
+                padding: 5px;
+                background-color: white;
+                line-height: 150%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print">
+    <header>
+        <h2>Fractionnement</h2>
+    </header>
+
+    <div class="options-panel">
+        <h2>Options de configuration</h2>
+        <div class="option" id="cat">
+            <label for="plane-cat">Catégorie d'avion</label>
+            <select id="plane-cat" onchange="catChanged(cat_sel.value);">
+                <option value="" disabled hidden selected style="color:gray;">Sélectionnez une option</option>
+            </select>
+            <div class="imbriq_sel" style="display: none;" id="type">
+                <label for="plane-type">Type d'avion</label>
+                <select id="plane-type" onchange="typeChanged(type_sel.value);">
+                    <option value="" disabled hidden selected style="color:gray;">Sélectionnez une option</option>
+                </select>
+                <div class="imbriq_sel" style="display: none;" id="spec">
+                    <label for="plane-spec">Caractéristiques</label>
+                    <select id="plane-spec" onchange="rem_plane_id=spec_sel.value; loadPlane(plane_types[spec_sel.value]);">
+                        <option value="" disabled hidden selected style="color:gray;">Sélectionnez une option</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="option">
+            <label><div id="txt_tot_para">Nombre de parachutistes</div><input type="number" name="param_vol" id="nb_para" onchange="nbParas=parseInt(this.value)"></label>
+            <label>Longueur de la ZMT (m)<input type="number" name="param_mat" id="long_zat" onchange="longZMT=parseInt(this.value)"></label>
+            <label>Largeur de la ZMT (m)<input type="number" name="param_mat" id="larg_zat" value="400" onchange="largZMT=parseInt(this.value)"></label>
+            <label>Hauteur de largage (m)<input type="number" name="param_mat" id="haut_larg" value="300" onchange="hautLarg=parseInt(this.value)"></label>
+        
+            <label>Type de saut</label>
+            <div class="checkbox-group">
+                <label><input type="radio" name="saut" value="eq">Saut avec gaine</label>
+                <label><input type="radio" name="saut" value="non_eq">Saut en lisse</label>
+                <label><input type="radio" name="saut" value="non_eq">Saut avec musette</label>
+                <label><input type="radio" name="saut" value="pos" checked="">Saut en position</label>
+            </div>
+
+            <label>Paramètres avancés</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="avanced" id="marge">Existence de marge de sécurité en aval et en amont de la DZ.</label>
+            </div>
+        </div>
+        <button id="apply-options">Appliquer les changements</button>
+    </div>
+    
+    
+    <div class="plane-container">
+        <div class="plane" id="plane"></div>
+    </div>
+    <div id="txt_descr" class="legend">
+        ? passages de ? paras
+    </div>
+    <div class="legend" style="margin-top: 10px;"><button onclick="window.print()">Ctrl+P pour voir la fiche de stage</button></div>
+    </div>
+    
+    <script src="gen_fiche.js"></script>
+    <script src="plane_types.js"></script>
+    <script src="plane.js"></script>
+
+    <div class="print">
+        
+    </div>
+</body>
+</html>
