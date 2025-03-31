@@ -1,7 +1,7 @@
 var flagDirectory = "https://www.drapeauxdespays.fr/data/flags/h160/";
 var flagExtension = "webp";
 
-var dataJSON = JSON.parse(`[
+var dataJSON = [
     {
         "countryLabel": "Afrique du Sud",
         "codeALPHA2": "ZA",
@@ -6390,7 +6390,7 @@ var dataJSON = JSON.parse(`[
         "enemploy": "6",
         "fertility": "2.04"
     }
-]`);
+];
 
 var countryList = [
     "Afrique du Sud",
