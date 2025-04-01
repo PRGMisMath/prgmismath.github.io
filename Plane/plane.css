@@ -1,8 +1,7 @@
 
 .plane-container {
-    margin-right: 280px;
     max-width: 400px;
-    max-height: calc(100vh - 190px);
+    max-height: calc(100vh - 210px);
     overflow-y: auto;
     background-color: #fff;
     border-radius: 10px;
@@ -48,7 +47,6 @@
 }
 
 .legend {
-    margin-right: 280px;
     margin-top: 20px;
     display: flex;
     justify-content: center;

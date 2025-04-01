@@ -27,6 +27,20 @@
             top: 0;
             left: 0;
             z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+        }
+        .center-el {
+            display: flex;
+            justify-content: center;
+            width: -webkit-fill-available;
+        }
+        #toggle-button {
+            border: 0;
+            background-color: inherit;
+            color: white;
+            padding: 10px;
+            font-size: larger;
         }
         .print {
             display: none;
@@ -36,7 +50,14 @@
             border-left: gray 5px solid;
             margin-top: 5px;
         }
-
+        .tow-right {
+            margin-right: 280px;
+        }
+        @media (max-width: 800px) {
+            .tow-right {
+                margin-right: 0;
+            }
+        }
         @media print {
             @page {
                 size: A4;
@@ -134,9 +155,12 @@
 </head>
 <body>
 
-    <div class="no-print">
+    <div class="no-print tow-right" id="main">
     <header>
-        <h2>Fractionnement</h2>
+        <div class="center-el">
+            <h2>Fractionnement</h2>
+        </div>
+        <button id="toggle-button" onclick="togglePanel()">☰</button>
     </header>
 
     <div class="options-panel">
@@ -198,5 +222,24 @@
     <div class="print">
         
     </div>
+
+    <script>
+        var isToggled = true;
+        var options_panel = document.querySelector("div.options-panel");
+        var div_cont = document.querySelector("div.no-print#main")
+
+        function togglePanel() {
+            if (isToggled) {
+                options_panel.style = "display:none;";
+                div_cont.classList.remove('tow-right');
+                isToggled = false;
+            }
+            else {
+                options_panel.style = "";
+                div_cont.classList.add('tow-right');
+                isToggled = true;
+            }
+        }
+    </script>
 </body>
 </html>
